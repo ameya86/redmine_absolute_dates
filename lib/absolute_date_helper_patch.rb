@@ -14,8 +14,8 @@ module AbsoluteDateHelperPatch
       l(options[:label] || :label_added_absolute_time_by, :author => link_to_user(author), :age => time_tag(created)).html_safe
     end
 
-    def time_tag_with_absolute_date(time)
-      text = format_date(time)
+    def time_tag_with_absolute_date(time, with_time = true)
+      text = (with_time && time.is_a?(Time))? format_time(time) : format_date(time)
       tip_text = format_time(time)
       if @project
         link_to(text, {:controller => 'activities', :action => 'index', :id => @project, :from => time.to_date}, :title => tip_text).html_safe
